@@ -31,7 +31,7 @@ app.post('/books', async (req, res) => {
     } catch (err) {
         console.log(err.message);
         res.status(500).send({ message: err.message });
-    }
+    };
 });
 
 // Route for Get All Books from database
@@ -45,7 +45,7 @@ app.get('/books', async (req, res) => {
     } catch (err) {
         console.log(err.message);
         res.status(500).send({ message: err.message });
-    }
+    };
 });
 
 // Route for Get One Book by id
@@ -57,7 +57,7 @@ app.get('/books/:id', async (req, res) => {
     } catch (err) {
         console.log(err.message);
         res.status(500).send({ message: err.message });
-    }
+    };
 });
 
 // Route for Update a Book
@@ -66,7 +66,7 @@ app.put('/books/:id', async (req, res) => {
         if (!req.body.title || !req.body.author || !req.body.publishYear) {
             return res.status(400).send({ message: 'Send all required fields: title, author, publishYear' });
         };
-        
+
         const id = req.params['id'];
         const result = await Book.findByIdAndUpdate(id, req.body);
 
@@ -77,7 +77,23 @@ app.put('/books/:id', async (req, res) => {
     } catch (err) {
         console.log(err.message);
         res.status(500).send({ message: err.message });
-    }
+    };
+});
+
+// Route for Delete a Book
+app.delete('/books/:id', async (req, res) => {
+    try {
+        const id = req.params['id'];
+        const result = await Book.findByIdAndDelete(id);
+
+        if (!result) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+        return res.status(200).send({ message: 'Book successfully deleted' });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send({ message: err.message });
+    };
 });
 
 // Connect to MongoDB database
