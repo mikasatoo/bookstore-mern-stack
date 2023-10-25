@@ -25,7 +25,6 @@ app.post('/books', async (req, res) => {
             author: req.body.author,
             publishYear: req.body.publishYear,
         };
-
         const book = await Book.create(newBook);
 
         return res.status(201).send(book);
@@ -43,6 +42,18 @@ app.get('/books', async (req, res) => {
             count: books.length,
             data: books
         });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send({ message: err.message });
+    }
+});
+
+// Route for Get One Book by id
+app.get('/books/:id', async (req, res) => {
+    try {
+        const id = req.params['id'];
+        const book = await Book.findById(id);
+        return res.status(201).json(book);
     } catch (err) {
         console.log(err.message);
         res.status(500).send({ message: err.message });
