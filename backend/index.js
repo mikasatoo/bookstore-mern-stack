@@ -10,11 +10,14 @@ const app = express();
 app.use(express.json());
 
 // Middleware for handling CORS policy
-app.use(cors({
-    origin: 'http://localhost:5555',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type'],
-}));
+// Option 1: Allow all origins
+app.use(cors());
+// Option 2: Allow custom origins
+// app.use(cors({
+//     origin: 'http://localhost:5555',
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type'],
+// }));
 
 app.get('/', (req, res) => {
     console.log(req);
