@@ -13,6 +13,14 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    createdAt: {
+        type: Date,
+        required: true,
+    },
+    updatedAt: {
+        type: Date,
+        required: true,
+    },
 });
 
 export const Book = mongoose.model('Book', bookSchema);

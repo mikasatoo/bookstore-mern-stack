@@ -15,6 +15,8 @@ router.post('/', async (req, res) => {
             title: req.body.title,
             author: req.body.author,
             publishYear: req.body.publishYear,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         };
         const book = await Book.create(newBook);
 
@@ -59,7 +61,15 @@ router.put('/:id', async (req, res) => {
         };
 
         const id = req.params['id'];
-        const result = await Book.findByIdAndUpdate(id, req.body);
+
+        const updatedBook = {
+            title: req.body.title,
+            author: req.body.author,
+            publishYear: req.body.publishYear,
+            updatedAt: new Date(),
+        };
+
+        const result = await Book.findByIdAndUpdate(id, updatedBook);
 
         if (!result) {
             return res.status(404).json({ message: 'Book not found' });
