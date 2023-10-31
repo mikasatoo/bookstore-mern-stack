@@ -11,6 +11,8 @@ type Book = {
     title: string
     author: string
     publishYear: number
+    createdAt: Date
+    updatedAt: Date
 }
 
 const Home = () => {
