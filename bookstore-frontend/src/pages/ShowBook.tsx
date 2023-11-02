@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
+import { useSnackbar } from 'notistack';
 
 type Book = {
     _id: string
@@ -24,6 +25,7 @@ const ShowBook = () => {
     });
     const [loading, setLoading] = useState<boolean>(false);
     const id = useParams<string>();
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         setLoading(true);
@@ -34,10 +36,11 @@ const ShowBook = () => {
                 setLoading(false);
             })
             .catch ((err) => {
-                console.log(err);
                 setLoading(false);
+                enqueueSnackbar('An error occurred. Please check the console.', { variant: 'error' });
+                console.log(err);
             });
-    }, [id]);
+    }, [id, enqueueSnackbar]);
 
     return (
         <div className='p-4'>
